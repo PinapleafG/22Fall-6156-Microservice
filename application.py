@@ -55,7 +55,7 @@ def get_security_name(item_name):
 @app.route("/api/childstation/<location_id>", methods=["GET"])
 def get_stations_by_id(location_id):
 
-    id, name, type, station_list = MicroService1.get_stations_by_name(location_id)
+    id, name, type, station_list = MicroService1.get_stations_by_id(location_id)
 
     if id:
         result = dict()
