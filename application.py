@@ -18,15 +18,18 @@ is_item_cache = dict()
 @app.route("/api/item/<item_name>", methods=["GET"])
 def get_item_by_name(item_name):
 
-    links = []
-    item_link = {"href": '/marketorders/'+item_name, "rel":"item info", "type": "GET"}
-    links.append(item_link)
-    rt = MicroService1.get_location_by_name(item_name)
 
-    if rt:
+    id, name, type, stations, solar_system_name, constellation_name, region_name = MicroService1.get_location_by_name(item_name)
+
+    if id:
         result = dict()
-        result['location'] = rt
-        result['links'] = links
+        result["id"] = id
+        result["name"] = name
+        result["type"] = type
+        result["stations"] = stations
+        result["solar_system_name"] = solar_system_name
+        result["constellation_name"] =constellation_name
+        result["region_name"] = region_name
         rsp = Response(json.dumps(result), status=200, content_type="application.json")
     else:
         rsp = Response("NOT FOUND", status=404, content_type="text/plain")
